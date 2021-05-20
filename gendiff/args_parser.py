@@ -10,7 +10,7 @@ def make_parser():
     Returns:
         parser (ArgumentParser): argument parser
      """
-    parser = argparse.ArgumentParser(description='Generate difference of two JSON or YAML files.')
+    parser = argparse.ArgumentParser(description='Gendiff (GENerator of DIFFerences).')
     parser.add_argument('first_file', type=str, help='first file to compare')
     parser.add_argument('second_file', type=str, help='second file to compare')
     parser.add_argument('-f', '--format', type=str, help='set output format')
