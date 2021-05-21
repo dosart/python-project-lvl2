@@ -3,6 +3,9 @@
 
 import argparse
 
+from gendiff.formaters.formater import default_format
+from gendiff.formaters.formater import formats
+
 
 def make_parser():
     """Return new argument parser.
@@ -13,7 +16,7 @@ def make_parser():
     parser = argparse.ArgumentParser(description='Gendiff (GENerator of DIFFerences).')
     parser.add_argument('first_file', type=str, help='first file to compare')
     parser.add_argument('second_file', type=str, help='second file to compare')
-    parser.add_argument('-f', '--format', type=str, help='set output format')
+    parser.add_argument('-f', '--format', type=str, choices=formats(), default=default_format(), help='set output format')
 
     return parser
 
