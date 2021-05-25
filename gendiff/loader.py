@@ -43,7 +43,7 @@ def load_data(path):
     try:
         with open(path, 'r') as input_file:
             loader(input_file)
-    except OSError:
+    except os.OSError:
         raise GendiffFileError(_file_open_error(path))
     except json.JSONDecodeError:
         raise GendiffFileError(_incorrect_yaml_file(path))
