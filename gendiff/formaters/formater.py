@@ -7,7 +7,7 @@ def formats():
     Returns:
         formats (list of string): available formats
     """
-    return ['json', 'plain']
+    return ["json", "plain"]
 
 
 def default_format():
@@ -16,4 +16,4 @@ def default_format():
     Returns:
         result (str): type default format
     """
-    return 'plain'
+    return "plain"

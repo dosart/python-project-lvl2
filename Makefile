@@ -1,6 +1,9 @@
 install: ## Install dependencies
 	@poetry install
 
+format: ## Install dependencies
+	poetry run black .
+
 test: ## Run tests
 	poetry run coverage run --source=gendiff -m pytest tests
 
