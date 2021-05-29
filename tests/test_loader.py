@@ -5,12 +5,18 @@
 import pytest
 
 from gendiff.loader import load_data, GendiffFileError
-from gendiff.loader import invalid_extension
 
 
-def test_wrong_extension():
-    with pytest.raises(GendiffFileError) as exception_info:
-        value = load_data("tests/fixtures/wrong_extension.txt")
-    assert str(exception_info.value) == invalid_extension(
-        "tests/fixtures/wrong_extension.txt"
-    )
+@pytest.mark.parametrize(
+    'file_path',
+    [
+        ('tests/fixtures/wrong_extension.txt'),
+        ('tests/fixtures/wrong_json.json'),
+        ('tests/fixtures/wrong_yaml.yaml'),
+        ('file_not_exists')
+    ],
+)
+def test_wrong_file(file_path):
+    with pytest.raises(GendiffFileError):
+        assert load_data(file_path)
+        

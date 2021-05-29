@@ -17,19 +17,19 @@ def invalid_extension(file_name):
     )
 
 
-def file_open_error(file_name):
+def _file_open_error(file_name):
     return '{0}: file open error'.format(file_name)
 
 
-def incorrect_yaml_file(file_name):
+def _incorrect_yaml_file(file_name):
     return '{0}: incorrect YAML file'.format(file_name)
 
 
-def incorrect_json_file(file_name):
+def _incorrect_json_file(file_name):
     return '{0}: incorrect JSON file'.format(file_name)
 
 
-def switch_loader(loader_name):
+def _switch_loader(loader_name):
     return {'json': json.load, 'yaml': yaml.safe_load, 'yml': yaml.safe_load}.get(
         loader_name, ""
     )
@@ -37,15 +37,15 @@ def switch_loader(loader_name):
 
 def load_data(path):
     _, extension = os.path.splitext(path)
-    loader = switch_loader(extension)
+    loader = _switch_loader(extension)
     if not loader:
         raise GendiffFileError(invalid_extension(path))
     try:
         with open(path, 'r') as input_file:
             loader(input_file)
     except OSError:
-        raise GendiffFileError(file_open_error(path))
+        raise GendiffFileError(_file_open_error(path))
     except json.JSONDecodeError:
-        raise GendiffFileError(incorrect_yaml_file(path))
+        raise GendiffFileError(_incorrect_yaml_file(path))
     except yaml.YAMLError:
-        raise GendiffFileError(incorrect_json_file(path))
+        raise GendiffFileError(_incorrect_json_file(path))

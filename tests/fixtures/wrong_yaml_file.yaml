@@ -1,0 +1,6 @@
+# -*- coding:utf-8 -*-
+
+  person:
+    first_name: no_first_name
+    last_name:  no_last_name
+    hobby: [programming, reading, ]
