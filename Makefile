@@ -17,6 +17,7 @@ check: ## selfcheck + test + lint
 	@make selfcheck
 	@make test
 	@make lint
+	poetry run black --check
 
 build: ## Check and builds a package
 	@make check
