@@ -6,11 +6,11 @@ import json
 import yaml
 import os
 
-from gendiff.exceptions.GendiffFileError import GendiffFileError
-from gendiff.exceptions.GendiffFileError import invalid_extension
-from gendiff.exceptions.GendiffFileError import file_open_error
-from gendiff.exceptions.GendiffFileError import incorrect_yaml_file
-from gendiff.exceptions.GendiffFileError import incorrect_json_file
+from gendiff.exceptions.loader_exception import GendiffFileError
+from gendiff.exceptions.loader_exception import invalid_extension
+from gendiff.exceptions.loader_exception import file_open_error
+from gendiff.exceptions.loader_exception import incorrect_yaml_file
+from gendiff.exceptions.loader_exception import incorrect_json_file
 
 
 def _switch_loader(loader_name):
@@ -18,24 +18,6 @@ def _switch_loader(loader_name):
         loader_name,
         "",
     )
-
-
-def get_loader(file_path):
-    """Return loader for file.
-
-    Function return loader for file based on file extension
-
-    Args:
-        file_path {string}: path to file for reading data
-
-    Returns:
-        loader: loader for readeng data
-    """
-    _, extension = os.path.splitext(file_path)
-    loader = _switch_loader(extension)
-    if not loader:
-        raise GendiffFileError(invalid_extension(file_path))
-    return loader
 
 
 def load_data(file_path):
@@ -50,8 +32,11 @@ def load_data(file_path):
     Returns:
         data {dict}: data from file
     """
+    _, extension = os.path.splitext(file_path)
+    loader = _switch_loader(extension)
+    if not loader:
+        raise GendiffFileError(invalid_extension(file_path))
     try:
-        loader = get_loader(file_path)
         with open(file_path, "r") as input_file:
             loader(input_file)
     except OSError:
@@ -60,5 +45,3 @@ def load_data(file_path):
         raise GendiffFileError(incorrect_yaml_file(file_path))
     except yaml.YAMLError:
         raise GendiffFileError(incorrect_json_file(file_path))
-    except GendiffFileError:
-        raise

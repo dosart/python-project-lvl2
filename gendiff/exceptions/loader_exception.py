@@ -21,7 +21,7 @@ def invalid_extension(file_name):
         message (string): message with file_name
     """
     return "{0} has invalid file extension. nuse one of: .json .yaml .yml".format(
-        file_name
+        file_name,
     )
 
 

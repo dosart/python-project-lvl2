@@ -4,7 +4,8 @@
 
 import pytest
 
-from gendiff.loader import load_data, GendiffFileError
+from gendiff.loader import load_data
+from gendiff.exceptions.loader_exception import GendiffFileError
 
 
 @pytest.mark.parametrize(
