@@ -1,4 +1,5 @@
 # -*- coding:utf-8 -*-
+
 """Implementation command line parser."""
 
 import argparse
